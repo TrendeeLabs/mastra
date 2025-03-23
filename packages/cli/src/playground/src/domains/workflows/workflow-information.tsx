@@ -28,7 +28,13 @@ export function WorkflowInformation({ workflowId }: { workflowId: string }) {
         </TabsTrigger>
       </TabsList>
       <TabsContent value="run">
-        {workflowId ? <WorkflowTrigger workflowId={workflowId} setRunId={setRunId} baseUrl="" /> : null}
+        {workflowId ? (
+          <WorkflowTrigger
+            workflowId={workflowId}
+            setRunId={setRunId}
+            baseUrl={import.meta.env.VITE_MASTRA_SERVER_BASE_URL || ''}
+          />
+        ) : null}
       </TabsContent>
       <TabsContent value="endpoints">
         <WorkflowEndpoints workflowId={workflowId} />

@@ -47,15 +47,18 @@ export function Chat({ agentId, initialMessages = [], agentName, threadId, memor
     setMessages(prev => [...prev, newUserMessage, newAssistantMessage]);
 
     try {
-      const response = await fetch('/api/agents/' + agentId + '/stream', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          messages: [userMessage],
-          runId: agentId,
-          ...(memory ? { threadId, resourceid: agentId } : {}),
-        }),
-      });
+      const response = await fetch(
+        (import.meta.env.VITE_MASTRA_SERVER_BASE_URL || '') + '/api/agents/' + agentId + '/stream',
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            messages: [userMessage],
+            runId: agentId,
+            ...(memory ? { threadId, resourceid: agentId } : {}),
+          }),
+        },
+      );
 
       if (!response.body) {
         throw new Error('No response body');
@@ -66,7 +69,10 @@ export function Chat({ agentId, initialMessages = [], agentName, threadId, memor
         throw new Error(error.message);
       }
 
-      mutate(`/api/memory/threads?resourceid=${agentId}&agentId=${agentId}`);
+      mutate(
+        (import.meta.env.VITE_MASTRA_SERVER_BASE_URL || '') +
+          `/api/memory/threads?resourceid=${agentId}&agentId=${agentId}`,
+      );
 
       const reader = response.body.getReader();
       const decoder = new TextDecoder();

@@ -7,7 +7,7 @@ export const useAgents = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   const client = new MastraClient({
-    baseUrl: '',
+    baseUrl: import.meta.env.VITE_MASTRA_SERVER_BASE_URL || '',
   });
 
   useEffect(() => {
@@ -36,7 +36,7 @@ export const useAgent = (agentId: string) => {
   const [isLoading, setIsLoading] = useState(true);
 
   const client = new MastraClient({
-    baseUrl: '',
+    baseUrl: import.meta.env.VITE_MASTRA_SERVER_BASE_URL || '',
   });
 
   useEffect(() => {

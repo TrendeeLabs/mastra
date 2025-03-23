@@ -10,7 +10,8 @@ export const useTools = () => {
     const fetchTools = async () => {
       setIsLoading(true);
       try {
-        const res = await fetch('/api/tools');
+        const res = await fetch((import.meta.env.VITE_MASTRA_SERVER_BASE_URL || '') + '/api/tools');
+
         if (!res.ok) {
           const error = await res.json();
           setTools({});
@@ -48,7 +49,7 @@ export const useTool = (toolId: string) => {
           setIsLoading(false);
           return;
         }
-        const res = await fetch(`/api/tools/${toolId}`);
+        const res = await fetch((import.meta.env.VITE_MASTRA_SERVER_BASE_URL || '') + `/api/tools/${toolId}`);
         if (!res.ok) {
           const error = await res.json();
           setTool(null);

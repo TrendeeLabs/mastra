@@ -9,7 +9,7 @@ function Workflow() {
   return (
     <main className="flex-1 relative divide-x flex w-full">
       <div className="min-w-[325px] grow">
-        <WorkflowGraph workflowId={workflowId!} baseUrl="" />
+        <WorkflowGraph workflowId={workflowId!} baseUrl={import.meta.env.VITE_MASTRA_SERVER_BASE_URL || ''} />
       </div>
       <MastraResizablePanel
         defaultWidth={20}

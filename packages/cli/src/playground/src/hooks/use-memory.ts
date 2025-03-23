@@ -10,10 +10,14 @@ export const useMemory = (agentId?: string) => {
     data: memory,
     isLoading,
     mutate,
-  } = useSWR<{ result: boolean }>(`/api/memory/status?agentId=${agentId}`, fetcher, {
-    fallbackData: { result: false },
-    isPaused: () => !agentId,
-  });
+  } = useSWR<{ result: boolean }>(
+    (import.meta.env.VITE_MASTRA_SERVER_BASE_URL || '') + `/api/memory/status?agentId=${agentId}`,
+    fetcher,
+    {
+      fallbackData: { result: false },
+      isPaused: () => !agentId,
+    },
+  );
   return { memory, isLoading, mutate };
 };
 
@@ -30,11 +34,16 @@ export const useThreads = ({
     data: threads,
     isLoading,
     mutate,
-  } = useSWR<Array<ThreadType>>(`/api/memory/threads?resourceid=${resourceid}&agentId=${agentId}`, fetcher, {
-    fallbackData: [],
-    isPaused: () => !resourceid || !agentId || !isMemoryEnabled,
-    revalidateOnFocus: false,
-  });
+  } = useSWR<Array<ThreadType>>(
+    (import.meta.env.VITE_MASTRA_SERVER_BASE_URL || '') +
+      `/api/memory/threads?resourceid=${resourceid}&agentId=${agentId}`,
+    fetcher,
+    {
+      fallbackData: [],
+      isPaused: () => !resourceid || !agentId || !isMemoryEnabled,
+      revalidateOnFocus: false,
+    },
+  );
 
   useEffect(() => {
     if (resourceid && agentId && isMemoryEnabled) {
@@ -101,17 +110,23 @@ export const useDeleteThread = () => {
     agentId: string;
     resourceid: string;
   }) => {
-    const deletePromise = fetch(`/api/memory/threads/${threadId}?agentId=${agentId}`, {
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json',
+    const deletePromise = fetch(
+      (import.meta.env.VITE_MASTRA_SERVER_BASE_URL || '') + `/api/memory/threads/${threadId}?agentId=${agentId}`,
+      {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
       },
-    });
+    );
 
     toast.promise(deletePromise, {
       loading: 'Deleting chat...',
       success: () => {
-        mutate(`/api/memory/threads?resourceid=${resourceid}&agentId=${agentId}`);
+        mutate(
+          (import.meta.env.VITE_MASTRA_SERVER_BASE_URL || '') +
+            `/api/memory/threads?resourceid=${resourceid}&agentId=${agentId}`,
+        );
         return 'Chat deleted successfully';
       },
       error: 'Failed to delete chat',

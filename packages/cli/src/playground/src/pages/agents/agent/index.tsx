@@ -50,6 +50,7 @@ function Agent() {
       <div className={cn('relative overflow-y-hidden grow min-w-[325px]')}>
         <Chat
           agentId={agentId!}
+          baseUrl={import.meta.env.VITE_MASTRA_SERVER_BASE_URL || ''}
           agentName={agent?.name}
           threadId={threadId!}
           initialMessages={isMessagesLoading ? undefined : (messages as Message[])}

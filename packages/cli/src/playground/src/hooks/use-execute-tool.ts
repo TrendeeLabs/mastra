@@ -7,13 +7,16 @@ export const useExecuteTool = () => {
   const executeTool = async ({ toolId, input }: { toolId: string; input: any }) => {
     try {
       setIsExecuting(true);
-      const response = await fetch(`/api/tools/${toolId}/execute`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
+      const response = await fetch(
+        (import.meta.env.VITE_MASTRA_SERVER_BASE_URL || '') + `/api/tools/${toolId}/execute`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ data: input }),
         },
-        body: JSON.stringify({ data: input }),
-      });
+      );
 
       if (!response.ok) {
         const error = await response.json();

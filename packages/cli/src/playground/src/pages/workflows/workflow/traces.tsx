@@ -26,7 +26,7 @@ function WorkflowTracesPage() {
   return (
     <WorkflowTraces
       workflowName={workflow?.name!}
-      baseUrl=""
+      baseUrl={import.meta.env.VITE_MASTRA_SERVER_BASE_URL || ''}
       sidebarChild={<WorkflowInformation workflowId={workflowId!} />}
     />
   );

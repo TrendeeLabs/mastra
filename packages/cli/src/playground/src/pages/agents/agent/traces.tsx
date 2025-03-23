@@ -23,7 +23,13 @@ function AgentTracesPage() {
     );
   }
 
-  return <AgentTraces agentName={agent?.name!} baseUrl="" sidebarChild={<AgentInformation agentId={agentId!} />} />;
+  return (
+    <AgentTraces
+      agentName={agent?.name!}
+      baseUrl={import.meta.env.VITE_MASTRA_SERVER_BASE_URL || ''}
+      sidebarChild={<AgentInformation agentId={agentId!} />}
+    />
+  );
 }
 
 export default AgentTracesPage;

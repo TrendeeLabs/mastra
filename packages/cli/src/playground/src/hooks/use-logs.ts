@@ -12,7 +12,7 @@ export const useLogsByRunId = (runId: string) => {
   const transportId = transports[0];
 
   const client = new MastraClient({
-    baseUrl: '',
+    baseUrl: import.meta.env.VITE_MASTRA_SERVER_BASE_URL || '',
   });
 
   const fetchLogs = async (_runId?: string) => {
@@ -60,7 +60,7 @@ export const useLogTransports = () => {
 
   const fetchLogTransports = async () => {
     const client = new MastraClient({
-      baseUrl: '',
+      baseUrl: import.meta.env.VITE_MASTRA_SERVER_BASE_URL || '',
     });
 
     try {

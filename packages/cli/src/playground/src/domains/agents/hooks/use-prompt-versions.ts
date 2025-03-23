@@ -11,9 +11,12 @@ export function usePromptVersions(agentId: string, instructions?: string) {
   // Fetch eval results for a version
   const fetchEvalResults = async (): Promise<EvalResult[]> => {
     try {
-      const response = await fetch(`/api/agents/${agentId}/evals/live`, {
-        method: 'GET',
-      });
+      const response = await fetch(
+        (import.meta.env.VITE_MASTRA_SERVER_BASE_URL || '') + `/api/agents/${agentId}/evals/live`,
+        {
+          method: 'GET',
+        },
+      );
 
       if (!response.ok) {
         throw new Error('Failed to fetch eval results');
@@ -119,15 +122,18 @@ export function usePromptVersions(agentId: string, instructions?: string) {
   const setVersionActive = async (version: PromptVersion, index: number) => {
     setIsUpdating(true);
     try {
-      const response = await fetch(`/api/agents/${agentId}/instructions`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
+      const response = await fetch(
+        (import.meta.env.VITE_MASTRA_SERVER_BASE_URL || '') + '/api/agents/' + agentId + '/instructions',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            instructions: version.content,
+          }),
         },
-        body: JSON.stringify({
-          instructions: version.content,
-        }),
-      });
+      );
 
       if (!response.ok) {
         throw new Error('Failed to update instructions');

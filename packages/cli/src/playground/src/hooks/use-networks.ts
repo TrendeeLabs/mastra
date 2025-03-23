@@ -7,7 +7,7 @@ export const useNetworks = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   const client = new MastraClient({
-    baseUrl: '',
+    baseUrl: import.meta.env.VITE_MASTRA_SERVER_BASE_URL || '',
   });
 
   useEffect(() => {
@@ -36,7 +36,7 @@ export const useNetwork = (networkId: string) => {
   const [isLoading, setIsLoading] = useState(true);
 
   const client = new MastraClient({
-    baseUrl: '',
+    baseUrl: import.meta.env.VITE_MASTRA_SERVER_BASE_URL || '',
   });
 
   useEffect(() => {

@@ -6,19 +6,25 @@ export function NetworkEndpoints({ networkId }: { networkId: string }) {
       <div className="space-y-4">
         <div className="grid grid-cols-[70px_1fr] gap-2">
           <p className="text-mastra-el-3">GET</p>
-          <p className="text-mastra-el-5">/api/networks</p>
+          <p className="text-mastra-el-5">{import.meta.env.VITE_MASTRA_SERVER_BASE_URL || ''}/api/networks</p>
         </div>
         <div className="grid grid-cols-[70px_1fr] gap-2">
           <p className="text-mastra-el-3">GET</p>
-          <p className="text-mastra-el-5">/api/networks/{networkId}</p>
+          <p className="text-mastra-el-5">
+            {import.meta.env.VITE_MASTRA_SERVER_BASE_URL || ''}/api/networks/{networkId}
+          </p>
         </div>
         <div className="grid grid-cols-[70px_1fr] gap-2">
           <p className="text-mastra-el-3">POST</p>
-          <p className="text-mastra-el-5">/api/networks/{networkId}/generate</p>
+          <p className="text-mastra-el-5">
+            {import.meta.env.VITE_MASTRA_SERVER_BASE_URL || ''}/api/networks/{networkId}/generate
+          </p>
         </div>
         <div className="grid grid-cols-[70px_1fr] gap-2">
           <p className="text-mastra-el-3">POST</p>
-          <p className="text-mastra-el-5">/api/networks/{networkId}/stream</p>
+          <p className="text-mastra-el-5">
+            {import.meta.env.VITE_MASTRA_SERVER_BASE_URL || ''}/api/networks/{networkId}/stream
+          </p>
         </div>
       </div>
     </ScrollArea>

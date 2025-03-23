@@ -4,7 +4,7 @@ import { toast } from 'sonner';
 import { MastraClient, GetWorkflowResponse, WorkflowRunResult } from '@mastra/client-js';
 
 const mastra = new MastraClient({
-  baseUrl: '',
+  baseUrl: import.meta.env.VITE_MASTRA_SERVER_BASE_URL || '',
 });
 
 export const useWorkflows = () => {
@@ -45,7 +45,7 @@ export const useWorkflow = (workflowId: string) => {
           setIsLoading(false);
           return;
         }
-        const res = await fetch(`/api/workflows/${workflowId}`);
+        const res = await fetch((import.meta.env.VITE_MASTRA_SERVER_BASE_URL || '') + `/api/workflows/${workflowId}`);
         if (!res.ok) {
           const error = await res.json();
           setWorkflow(null);
@@ -107,7 +107,7 @@ export const useWatchWorkflow = () => {
     try {
       setIsWatchingWorkflow(true);
       const client = new MastraClient({
-        baseUrl: '',
+        baseUrl: import.meta.env.VITE_MASTRA_SERVER_BASE_URL || '',
       });
 
       const watchSubscription = client.getWorkflow(workflowId).watch({ runId });

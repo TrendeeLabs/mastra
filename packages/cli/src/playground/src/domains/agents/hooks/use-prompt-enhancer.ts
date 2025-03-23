@@ -41,16 +41,19 @@ export function usePromptEnhancer({
 
     setIsEnhancing(true);
     try {
-      const response = await fetch(`/api/agents/${agentId}/instructions/enhance`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
+      const response = await fetch(
+        (import.meta.env.VITE_MASTRA_SERVER_BASE_URL || '') + `/api/agents/${agentId}/instructions/enhance`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            instructions,
+            comment: userComment,
+          }),
         },
-        body: JSON.stringify({
-          instructions,
-          comment: userComment,
-        }),
-      });
+      );
 
       if (!response.ok) {
         throw new Error('Failed to enhance prompt');

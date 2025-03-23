@@ -22,7 +22,9 @@ export const useEvalsByAgentId = (agentId: string, type: 'ci' | 'live') => {
   const fetchEvals = async (_agentId?: string) => {
     setIsLoading(true);
     try {
-      const res = await fetch(`/api/agents/${_agentId ?? agentId}/evals/${type}`);
+      const res = await fetch(
+        (import.meta.env.VITE_MASTRA_SERVER_BASE_URL || '') + `/api/agents/${_agentId ?? agentId}/evals/${type}`,
+      );
       if (!res.ok) {
         const error = await res.json();
         setEvals([]);
