@@ -1,1 +1,1 @@
-export * from './resources/agent';
+export * from './resources';

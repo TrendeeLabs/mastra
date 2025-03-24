@@ -67,7 +67,7 @@ export async function getNetworkByIdHandler(mastra: Mastra, networkId: string) {
   }
 }
 
-export async function generateHandler(mastra: Mastra, networkId: string, body: any): Promise<any> {
+export async function generateNetworkHandler(mastra: Mastra, networkId: string, body: any): Promise<any> {
   try {
     const network = mastra.getNetwork(networkId);
 
@@ -92,7 +92,7 @@ export async function generateHandler(mastra: Mastra, networkId: string, body: a
   }
 }
 
-export async function streamGenerateHandler(mastra: Mastra, networkId: string, body: any): Promise<any> {
+export async function streamGenerateNetworkHandler(mastra: Mastra, networkId: string, body: any): Promise<any> {
   try {
     const network = mastra.getNetwork(networkId);
 

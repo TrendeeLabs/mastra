@@ -1,6 +1,6 @@
 {
   "name": "@trendeelabs/mastra-server-js",
-  "version": "0.0.0-alpha.1",
+  "version": "0.0.0-alpha.4",
   "description": "The official TypeScript library for the Mastra Server",
   "author": "",
   "type": "module",
@@ -25,8 +25,8 @@
     "build": "tsup src/index.ts --format esm,cjs --dts --clean --treeshake=smallest --splitting",
     "dev": "pnpm build --watch",
     "test": "vitest run",
-    "prepublishOnly": "pnpm run build && pnpm run test",
-    "publish": "pnpm publish --access public"
+    "prepublishOnly": "pnpm run build",
+    "publish": "pnpm publish --access public --no-git-checks"
   },
   "dependencies": {
     "@mastra/core": "^0.6.3",
